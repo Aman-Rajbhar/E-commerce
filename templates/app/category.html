@@ -1,0 +1,242 @@
+{% extends "app/base.html" %}
+{% load static %}
+
+{% block content %}
+<section class="product" id="product" style="margin-top: 43px;" id="mens">
+
+    <h1 class="heading">$$ Shop by category $$</h1>
+    <ul class="caturl">
+        
+        <li><a href="{% url 'category' %}Mens" class="btn">Mens</a></li>
+        <li><a href="{% url 'category' %}Womens" class="btn">Womens</a></li>
+        <li><a href="{% url 'category' %}Kids" class="btn">Kids</a></li>
+        <li><a href="{% url 'category' %}Electronics" class="btn">Electronics</a></li>
+        <li><a href="{% url 'category' %}Beauty" class="btn">Beauty</a></li>
+        <li><a href="{% url 'category' %}HD" class="btn">Home Decorations</a></li>
+    
+    </ul>
+    
+    <h1 class="heading"><span>Mens</span></h1>
+    <div class="box-container">
+        {% for product in mens %}
+        <div class="box">
+            <span class="discount">-{{product.get_discount|floatformat:0}}%</span>
+            <a href={% url 'products' %}{{product.id}}><img src={{product.imageUrl}} alt=""></a>
+            <h3>{{product.name}}</h3>
+            <div class="stars">
+                <i class="fa fa-star{% if product.averageReview < 0.5 %}-o{% elif product.averageReview >= 0.5 and product.averageReview < 1 %}-half-o {% endif %}" aria-hidden="true"></i>
+                <i class="fa fa-star{% if product.averageReview < 1.5 %}-o{% elif product.averageReview >= 1.5 and product.averageReview < 2 %}-half-o {% endif %}" aria-hidden="true"></i>
+                <i class="fa fa-star{% if product.averageReview < 2.5 %}-o{% elif product.averageReview >= 2.5 and product.averageReview < 3 %}-half-o {% endif %}" aria-hidden="true"></i>
+                <i class="fa fa-star{% if product.averageReview < 3.5 %}-o{% elif product.averageReview >= 3.5 and product.averageReview < 4 %}-half-o {% endif %}" aria-hidden="true"></i>
+                <i class="fa fa-star{% if product.averageReview < 4.5 %}-o{% elif product.averageReview >= 4.5 and product.averageReview < 5 %}-half-o {% endif %}" aria-hidden="true"></i>
+                <span>({{product.countReview}})</span>
+            </div>
+            <div class="price"> ₹{{product.d_price|floatformat:2}} <span> ₹{{product.o_price|floatformat:2}} </span> </div>
+            <div class="quantity">
+                <span>quantity : </span>
+                <input type="number" min="1" max="1000" value={{product.unit}} readonly>
+                
+            </div>
+            <a  class="btn update-cart" data-product="{{product.id}}" data-action="add">add to cart</a>
+        </div>
+          
+        {% endfor %}
+        
+    </div>
+</section>
+
+
+<section class="product" id="product" style="margin-top: 50px;" id="Womens">
+
+    <h1 class="heading"><span>Womens</span></h1>
+    <div class="box-container">
+    
+
+        {% for product in womens %}
+        <div class="box">
+            <span class="discount">-{{product.get_discount|floatformat:0}}%</span>
+            <a href="{% url 'products' %}{{product.id}}"><img src={{product.imageUrl}} alt=""></a>
+            <h3>{{product.name}}</h3>
+            <div class="stars">
+                <i class="fa fa-star{% if product.averageReview < 0.5 %}-o{% elif product.averageReview >= 0.5 and product.averageReview < 1 %}-half-o {% endif %}" aria-hidden="true"></i>
+                <i class="fa fa-star{% if product.averageReview < 1.5 %}-o{% elif product.averageReview >= 1.5 and product.averageReview < 2 %}-half-o {% endif %}" aria-hidden="true"></i>
+                <i class="fa fa-star{% if product.averageReview < 2.5 %}-o{% elif product.averageReview >= 2.5 and product.averageReview < 3 %}-half-o {% endif %}" aria-hidden="true"></i>
+                <i class="fa fa-star{% if product.averageReview < 3.5 %}-o{% elif product.averageReview >= 3.5 and product.averageReview < 4 %}-half-o {% endif %}" aria-hidden="true"></i>
+                <i class="fa fa-star{% if product.averageReview < 4.5 %}-o{% elif product.averageReview >= 4.5 and product.averageReview < 5 %}-half-o {% endif %}" aria-hidden="true"></i>
+                <span>({{product.countReview}})</span> 
+            </div>
+            <div class="price"> ₹{{product.d_price|floatformat:2}} <span> ₹{{product.o_price|floatformat:2}} </span> </div>
+            <div class="quantity">
+                <span>quantity : </span>
+                <input type="number" min="1" max="1000" value={{product.unit}} readonly>
+                
+            </div>
+            <a class="btn update-cart" data-product="{{product.id}}" data-action="add">add to cart</a>
+        </div>
+          
+        {% endfor %}
+        
+    </div>
+</section>
+
+<section class="product" id="product" style="margin-top: 50px;" id="kids">
+
+    <h1 class="heading">Kids</h1>
+    <div class="box-container">
+        
+
+        {% for product in kids %}
+        <div class="box">
+            <span class="discount">-{{product.get_discount|floatformat:0}}%</span>
+            <a href="{% url 'products' %}{{product.id}}"><img src={{product.imageUrl}} alt=""></a>
+            <h3>{{product.name}}</h3>
+            <div class="stars">
+                <i class="fa fa-star{% if product.averageReview < 0.5 %}-o{% elif product.averageReview >= 0.5 and product.averageReview < 1 %}-half-o {% endif %}" aria-hidden="true"></i>
+                <i class="fa fa-star{% if product.averageReview < 1.5 %}-o{% elif product.averageReview >= 1.5 and product.averageReview < 2 %}-half-o {% endif %}" aria-hidden="true"></i>
+                <i class="fa fa-star{% if product.averageReview < 2.5 %}-o{% elif product.averageReview >= 2.5 and product.averageReview < 3 %}-half-o {% endif %}" aria-hidden="true"></i>
+                <i class="fa fa-star{% if product.averageReview < 3.5 %}-o{% elif product.averageReview >= 3.5 and product.averageReview < 4 %}-half-o {% endif %}" aria-hidden="true"></i>
+                <i class="fa fa-star{% if product.averageReview < 4.5 %}-o{% elif product.averageReview >= 4.5 and product.averageReview < 5 %}-half-o {% endif %}" aria-hidden="true"></i>
+                <span>({{product.countReview}})</span> 
+            </div>
+            <div class="price"> ₹{{product.d_price|floatformat:2}} <span> ₹{{product.o_price|floatformat:2}} </span> </div>
+            <div class="quantity">
+                <span>quantity : </span>
+                <input type="number" min="1" max="1000" value={{product.unit}} readonly>
+                
+            </div>
+            <a  class="btn update-cart" data-product="{{product.id}}" data-action="add">add to cart</a>
+        </div>
+          
+        {% endfor %}
+        
+    </div>
+</section>
+
+<section class="product" id="product" style="margin-top: 50px;" id="electronics">
+    <h1 class="heading">Electronics</h1>
+    <div class="box-container">
+        {% for product in electronics %}
+        <div class="box">
+            <span class="discount">-{{product.get_discount|floatformat:0}}%</span>
+            <a href="{% url 'products' %}{{product.id}}"><img src={{product.imageUrl}} alt=""></a>
+            <h3>{{product.name}}</h3>
+            <div class="stars">
+                <i class="fa fa-star{% if product.averageReview < 0.5 %}-o{% elif product.averageReview >= 0.5 and product.averageReview < 1 %}-half-o {% endif %}" aria-hidden="true"></i>
+                <i class="fa fa-star{% if product.averageReview < 1.5 %}-o{% elif product.averageReview >= 1.5 and product.averageReview < 2 %}-half-o {% endif %}" aria-hidden="true"></i>
+                <i class="fa fa-star{% if product.averageReview < 2.5 %}-o{% elif product.averageReview >= 2.5 and product.averageReview < 3 %}-half-o {% endif %}" aria-hidden="true"></i>
+                <i class="fa fa-star{% if product.averageReview < 3.5 %}-o{% elif product.averageReview >= 3.5 and product.averageReview < 4 %}-half-o {% endif %}" aria-hidden="true"></i>
+                <i class="fa fa-star{% if product.averageReview < 4.5 %}-o{% elif product.averageReview >= 4.5 and product.averageReview < 5 %}-half-o {% endif %}" aria-hidden="true"></i>
+                <span>({{product.countReview}})</span> 
+            </div>
+            <div class="price"> ₹{{product.d_price|floatformat:2}} <span> ₹{{product.o_price|floatformat:2}}</span> </div>
+            <div class="quantity">
+                <span>quantity : </span>
+                <input type="number" min="1" max="1000" value={{product.unit}} readonly> 
+            </div>
+            <a  class="btn update-cart" data-product={{product.id}} data-action="add">add to cart</a>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+
+<section class="product" id="product" style="margin-top: 50px;" id="toys">
+
+    <h1 class="heading"> <span>Electronics</span></h1>
+    <div class="box-container">
+        
+
+        {% for product in toys %}
+        <div class="box">
+            <span class="discount">-{{product.get_discount|floatformat:0}}%</span>
+            <a href="{% url 'products' %}{{product.id}}"><img src={{product.imageUrl}} alt=""></a>
+            <h3>{{product.name}}</h3>
+            <div class="stars">
+                <i class="fa fa-star{% if product.averageReview < 0.5 %}-o{% elif product.averageReview >= 0.5 and product.averageReview < 1 %}-half-o {% endif %}" aria-hidden="true"></i>
+                <i class="fa fa-star{% if product.averageReview < 1.5 %}-o{% elif product.averageReview >= 1.5 and product.averageReview < 2 %}-half-o {% endif %}" aria-hidden="true"></i>
+                <i class="fa fa-star{% if product.averageReview < 2.5 %}-o{% elif product.averageReview >= 2.5 and product.averageReview < 3 %}-half-o {% endif %}" aria-hidden="true"></i>
+                <i class="fa fa-star{% if product.averageReview < 3.5 %}-o{% elif product.averageReview >= 3.5 and product.averageReview < 4 %}-half-o {% endif %}" aria-hidden="true"></i>
+                <i class="fa fa-star{% if product.averageReview < 4.5 %}-o{% elif product.averageReview >= 4.5 and product.averageReview < 5 %}-half-o {% endif %}" aria-hidden="true"></i>
+                <span>({{product.countReview}})</span> 
+            </div>
+            <div class="price"> ₹{{product.d_price|floatformat:2}}/{{product.unit}} <span> ₹{{product.o_price|floatformat:2}} </span> </div>
+            <div class="quantity">
+                <span>quantity : </span>
+                <input type="number" min="1" max="1000" value={{product.unit}} readonly>
+                
+            </div>
+            <a  class="btn update-cart" data-product="{{product.id}}" data-action="add">add to cart</a>
+        </div>
+          
+        {% endfor %}
+        
+    </div>
+</section>
+
+<section class="product" id="product" style="margin-top: 50px;" id="beauty">
+
+    <h1 class="heading"> <span>Beauty</span></h1>
+    <div class="box-container">
+        
+
+        {% for product in beauty %}
+        <div class="box">
+            <span class="discount">-{{product.get_discount|floatformat:0}}%</span>
+            <a href="{% url 'products' %}{{product.id}}"><img src={{product.imageUrl}} alt=""></a>
+            <h3>{{product.name}}</h3>
+            <div class="stars">
+                <i class="fa fa-star{% if product.averageReview < 0.5 %}-o{% elif product.averageReview >= 0.5 and product.averageReview < 1 %}-half-o {% endif %}" aria-hidden="true"></i>
+                <i class="fa fa-star{% if product.averageReview < 1.5 %}-o{% elif product.averageReview >= 1.5 and product.averageReview < 2 %}-half-o {% endif %}" aria-hidden="true"></i>
+                <i class="fa fa-star{% if product.averageReview < 2.5 %}-o{% elif product.averageReview >= 2.5 and product.averageReview < 3 %}-half-o {% endif %}" aria-hidden="true"></i>
+                <i class="fa fa-star{% if product.averageReview < 3.5 %}-o{% elif product.averageReview >= 3.5 and product.averageReview < 4 %}-half-o {% endif %}" aria-hidden="true"></i>
+                <i class="fa fa-star{% if product.averageReview < 4.5 %}-o{% elif product.averageReview >= 4.5 and product.averageReview < 5 %}-half-o {% endif %}" aria-hidden="true"></i>
+                <span>({{product.countReview}})</span> 
+            </div>
+            <div class="price"> ₹{{product.d_price|floatformat:2}} <span> ₹{{product.o_price|floatformat:2}} </span> </div>
+            <div class="quantity">
+                <span>quantity : </span>
+                <input type="number" min="1" max="1000" value={{product.unit}} readonly>
+                
+            </div>
+            <a  class="btn update-cart" data-product="{{product.id}}" data-action="add">add to cart</a>
+        </div>
+          
+        {% endfor %}
+        
+    </div>
+</section>
+
+<section class="product" id="product" style="margin-top: 50px;" id="homedecor">
+
+    <h1 class="heading"> <span>Home Decorations</span></h1>
+    <div class="box-container">
+        
+
+        {% for product in homedecor %}
+        <div class="box">
+            <span class="discount">-{{product.get_discount|floatformat:0}}%</span>
+            <a href="{% url 'products' %}{{product.id}}"><img src={{product.imageUrl}} alt=""></a>
+            <h3>{{product.name}}</h3>
+            <div class="stars">
+                <i class="fa fa-star{% if product.averageReview < 0.5 %}-o{% elif product.averageReview >= 0.5 and product.averageReview < 1 %}-half-o {% endif %}" aria-hidden="true"></i>
+                <i class="fa fa-star{% if product.averageReview < 1.5 %}-o{% elif product.averageReview >= 1.5 and product.averageReview < 2 %}-half-o {% endif %}" aria-hidden="true"></i>
+                <i class="fa fa-star{% if product.averageReview < 2.5 %}-o{% elif product.averageReview >= 2.5 and product.averageReview < 3 %}-half-o {% endif %}" aria-hidden="true"></i>
+                <i class="fa fa-star{% if product.averageReview < 3.5 %}-o{% elif product.averageReview >= 3.5 and product.averageReview < 4 %}-half-o {% endif %}" aria-hidden="true"></i>
+                <i class="fa fa-star{% if product.averageReview < 4.5 %}-o{% elif product.averageReview >= 4.5 and product.averageReview < 5 %}-half-o {% endif %}" aria-hidden="true"></i>
+                <span>({{product.countReview}})</span> 
+            </div>
+            <div class="price"> ₹{{product.d_price|floatformat:2}} <span> ₹{{product.o_price|floatformat:2}} </span> </div>
+            <div class="quantity">
+                <span>quantity : </span>
+                <input type="number" min="1" max="1000" value={{product.unit}} readonly>
+                
+            </div>
+            <a  class="btn update-cart" data-product="{{product.id}}" data-action="add">add to cart</a>
+        </div>
+          
+        {% endfor %}
+        
+    </div>
+</section>
+
+{% endblock content %}

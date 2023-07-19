@@ -1,0 +1,106 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Buy-On-Wish</title>
+    <link rel="icon" type="image/x-icon" href={% static 'images/favicon.ico' %}>
+    <!-- Bootstrap cdn -->
+
+    <!-- font awesome link  -->
+
+    <script
+      src="https://kit.fontawesome.com/ae3273139f.js"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- custom css file link  -->
+    <link rel="stylesheet" href="{% static 'app/css/style.css' %}" />
+    <!---->
+    <script type="text/javascript">
+      var user = "{{request.user}}";
+
+      function getToken(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== "") {
+          const cookies = document.cookie.split(";");
+          for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === name + "=") {
+              cookieValue = decodeURIComponent(
+                cookie.substring(name.length + 1)
+              );
+              break;
+            }
+          }
+        }
+        return cookieValue;
+      }
+      var csrftoken = getToken("csrftoken");
+    </script>
+  </head>
+  <body>
+    <!-- header section starts  -->
+
+    <header>
+      <div class="header-2">
+        <div id="menu-bar" class="fas fa-bars"></div>
+
+        <a href="{% url 'index' %}" class="logo"
+          ><img class="brand" src="{% static 'images/logo1.png' %}" alt="logo"
+        /></a>
+
+        <nav class="navbar">
+          <a href="{% url 'index' %}">home</a>
+          <a href="{% url 'category' %}">category</a>
+          <a href="{% url 'products' %}">product</a>
+          <a href="{% url 'contact' %}">contact</a>
+          <a href="{% url 'about' %}">about</a>
+        </nav>
+
+        {% if request.user.is_authenticated %}
+        <div class="icons">
+          <span id="hello-mssg"> Welcome {{ request.user }}!! </span>
+          <a href="{% url 'profile' %}" class="fas fa-user-circle"></a>
+          <a href="{% url 'cart' %}" class="fas fa-shopping-cart"
+            ><sup style="font-size: 1.9rem">{{order.get_cart_items}}</sup></a
+          >
+          <a
+            href="{% url 'loginPage' %}"
+            class="fa-solid fa-right-from-bracket"
+          ></a>
+        </div>
+        {% else %}
+        <div>
+          <a href="{% url 'register' %}" class="btn">Register</a>
+        </div>
+        {% endif %}
+      </div>
+    </header>
+
+    <!-- header section ends -->
+
+    <br />
+    {% if messages %}
+    <div class="messages" id="messages">
+      <ul class="msg">
+        {% for message in messages %}
+        <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>
+          {{ message }}
+        </li>
+        {% endfor %}
+      </ul>
+      <span><i class="fa-solid fa-xmark" id="cross" onclick="rm()"></i></span>
+    </div>
+    {% endif %}
+    <script>
+      const messages = document.getElementById("messages");
+      function rm() {
+        messages.style.display = "none";
+      }
+      // document.onscroll = rm()
+    </script>
+  </body>
+</html>

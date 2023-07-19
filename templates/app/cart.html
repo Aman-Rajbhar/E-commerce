@@ -1,0 +1,47 @@
+{% extends "app/base.html" %}
+{% load static %}
+{% block content %}
+  <section class="cart" style="margin-top: 43px;">
+        <div class="box-container">
+            <a href={% url 'index' %} style="margin-bottom: 2rem;" class="btn"><i class="fa-solid fa-arrow-left-long"></i> Continue Shopping</a>
+
+            {% if order.get_cart_items == 0 %}
+            <h1 class="heading">OOPS!! The cart is empty</h1>
+            <img class="cart-img" src={% static 'images/empty-cart.png' %} alt="">
+            
+            {% else %}
+            <div class="box-1">
+                <p><span>Items:</span> {{order.get_cart_items}}</p>
+                <p><span>total:</span> ₹ {{order.get_cart_total|floatformat:2}} </p>
+                <a href="{% url 'checkout' %}" style="margin-top: 0;" class="btn">checkout</a>
+            </div>
+            <div class="box-2">
+                <div class="row" style="font-weight: bold;">
+                    <p>product</p>
+                    <p>name</p>
+                    <p>price</p>
+                    <p>quantity</p>
+                    <p>total</p>
+                </div>
+                <hr>
+                {% for item in items %}
+                <div class="row">
+                    <img src="{{item.product.imageUrl}}" alt="" height="100rem" width="100rem">
+                    <p>{{item.product.name}}</p>
+                    <p>₹{{item.product.d_price|floatformat:2}}</p>
+                    <p class="itemupdate">
+                        <a ><i class="fa-solid fa-plus update-cart" data-action="add" data-product="{{item.product.id}}"></i></a>
+                        <span>{{item.quantity}}</span>
+                        <a ><i class="fa-solid fa-minus update-cart" data-action="remove" data-product="{{item.product.id}}"></i></a>
+                    </p>
+                    <p>₹{{item.get_total|floatformat:2}}</p>
+                </div>
+                {% endfor %}
+           
+            </div>
+
+            {% endif %}
+            
+        </div>
+    </section>
+{% endblock content %}

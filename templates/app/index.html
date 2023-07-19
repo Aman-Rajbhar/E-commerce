@@ -1,0 +1,319 @@
+{% extends "app/base.html" %}
+{% load static %}
+{% block content %}
+
+
+<style>
+/* Sliders */
+/* Slideshow container */
+.slideshow-container {
+  max-width: 80%;
+  position: relative;
+  margin: auto;
+}
+
+/* Next & previous buttons */
+.prev, .next {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: auto;
+  padding: 16px;
+  margin-top: -22px;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  transition: 0.6s ease;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+}
+
+/* Position the "next button" to the right */
+.next {
+  right: 0;
+  border-radius: 3px 0 0 3px;
+}
+
+/* On hover, add a black background color with a little bit see-through */
+.prev:hover, .next:hover {
+  background-color: rgba(0,0,0,0.8);
+}
+
+/* Caption text */
+.text {
+  color: #f2f2f2;
+  font-size: 15px;
+  padding: 8px 12px;
+  position: absolute;
+  bottom: 8px;
+  width: 100%;
+  text-align: center;
+}
+
+/* Number text (1/3 etc) */
+.numbertext {
+  color: #f2f2f2;
+  font-size: 12px;
+  padding: 8px 12px;
+  position: absolute;
+  top: 0;
+}
+
+/* The dots/bullets/indicators */
+.dot {
+  cursor: pointer;
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.6s ease;
+}
+
+.active, .dot:hover {
+  background-color: #717171;
+}
+
+/* Fading animation */
+.fade {
+  animation-name: fade;
+  animation-duration: 1.5s;
+}
+
+@keyframes fade {
+  from {opacity: .4} 
+  to {opacity: 1}
+}
+
+@media only screen and (max-width: 300px) {
+  .prev, .next,.text {font-size: 11px}
+}
+/* slider ends here */
+</style>
+
+
+<!-- home section starts  -->
+
+<section class="home" id="home" style="margin-top: 10px;">
+
+    <div class="image ">
+        <img class="home-image" src="{% static 'images/giftb1.jpg' %}" alt="">
+    </div>
+
+    <div class="content">
+        <span class="italic">Yesterday is a history, Tomarrow is a mistry, But Today is a Gift ...</span>
+        <h3>So let's Celebrate every moment with a special products</h3>
+        <a href="#category" class="btn">get started</a>
+    </div>
+
+</section>
+
+<!-- home section ends -->
+
+
+<!--Sliders start here-->
+<div class="slideshow-container banner-container">
+
+    <div class="mySlides fade banner">
+        <div class="numbertext">1 / 3</div>
+        <img src="{% static 'images/banner-3.jpg' %}" style="width:100%">
+        <div class="content">
+          <h3>Event Special</h3>
+          <p>upto 45% off</p>
+          <a href="{% url 'products' %}" class="btn">check out</a>
+      </div>
+    </div>
+    <div class="mySlides fade banner">
+    <div class="numbertext">2 / 3</div>
+    <img src="{% static 'images/banner-1.jpg' %}" style="width:100%">
+        <div class="content">
+            <h3>limited offer</h3>
+            <p>upto 50% off</p>
+            <a href="{% url 'products' %}" class="btn">check out</a>
+        </div>
+    </div>
+
+    <div class="mySlides fade banner">
+        <div class="numbertext">3 / 3</div>
+        <img src="{% static 'images/banner-2.jpg' %}" style="width:100%">
+        <div class="content">
+            <h3>special offer</h3>
+            <p>upto 45% off</p>
+            <a href="{% url 'products' %}" class="btn">check out</a>
+        </div>
+    </div>
+
+
+
+<!-- <a class="prev"  onclick="plusSlides(-1)">❮</a>
+<a class="next" onclick="plusSlides(1)">❯</a> -->
+
+</div>
+<br>
+
+<div style="text-align:center">
+  <span class="dot" onclick="currentSlide(1)"></span> 
+  <span class="dot" onclick="currentSlide(2)"></span> 
+  <span class="dot" onclick="currentSlide(3)"></span> 
+</div>
+
+<!--Sliders end here-->
+
+<!-- category section starts  -->
+
+<section class="category" id="category">
+
+    <h1 class="heading">shop by <span>category</span></h1>
+
+    <div class="box-container">
+
+        <div class="box">
+            <h3>Mens</h3>
+            <p>upto 50% off</p>
+            <a href="{% url 'category' %}Mens"><img src="{% static 'images/category-1.jpg'  %}" width="200"alt=""></a>
+            <a href="{% url 'category' %}Mens" class="btn">shop now</a>
+        </div>
+        <div class="box">
+            <h3>Womens</h3>
+            <p>upto 44% off</p>
+            <a href="{% url 'category' %}Womens"><img src="{% static 'images/category-2.jpg' %}" width="200"  alt=""></a>
+            <a href="{% url 'category' %}Womens" class="btn">shop now</a>
+        </div>
+        <div class="box">
+            <h3>Kids</h3>
+            <p>upto 35% off</p>
+            <a href="{% url 'category' %}Kids"><img src="{% static 'images/category-3.jpg' %}" width="200" alt=""></a>
+            <a href="{% url 'category' %}Kids" class="btn">shop now</a>
+        </div>
+        <div class="box">
+            <h3>Electronics</h3>
+            <p>upto 12% off</p>
+            <a href="{% url 'category' %}Electronics"><img src="{% static 'images/category-4.jpg'  %}" width="200" alt=""></a>
+            <a href="{% url 'category' %}Electronics" class="btn">shop now</a>
+        </div>
+        <div class="box">
+            <h3>Beauty</h3>
+            <p>upto 23% off</p>
+            <a href="{% url 'category' %}Beauty"><img src="{% static 'images/category-4.jpg'  %}" width="200" alt=""></a>
+            <a href="{% url 'category' %}Beauty" class="btn">shop now</a>
+        </div>
+        <div class="box">
+            <h3>Home Decorations</h3>
+            <p>upto 34% off</p>
+            <a href="{% url 'category' %}HD"><img src="{% static 'images/category-4.jpg'  %}" width="200" alt=""></a>
+            <a href="{% url 'category' %}HD" class="btn">shop now</a>
+        </div>
+
+    </div>
+
+</section>
+
+<!-- category section ends -->
+
+<!-- product section starts  -->
+
+<section class="product" id="product">
+
+    <h1 class="heading">Latest <span>Products</span></h1>
+
+    <div class="box-container">
+        {% for product in products %}
+        <div class="box">
+            <span class="discount">-{{product.get_discount|floatformat:0}}%</span>
+            
+            <a href={% url 'products' %}{{product.id}}><img src={{product.imageUrl}} alt=""></a>
+            <h3>{{product.name}}</h3>
+            <div class="stars">
+                <i class="fa fa-star{% if product.averageReview < 0.5 %}-o{% elif product.averageReview >= 0.5 and product.averageReview < 1 %}-half-o {% endif %}" aria-hidden="true"></i>
+                <i class="fa fa-star{% if product.averageReview < 1.5 %}-o{% elif product.averageReview >= 1.5 and product.averageReview < 2 %}-half-o {% endif %}" aria-hidden="true"></i>
+                <i class="fa fa-star{% if product.averageReview < 2.5 %}-o{% elif product.averageReview >= 2.5 and product.averageReview < 3 %}-half-o {% endif %}" aria-hidden="true"></i>
+                <i class="fa fa-star{% if product.averageReview < 3.5 %}-o{% elif product.averageReview >= 3.5 and product.averageReview < 4 %}-half-o {% endif %}" aria-hidden="true"></i>
+                <i class="fa fa-star{% if product.averageReview < 4.5 %}-o{% elif product.averageReview >= 4.5 and product.averageReview < 5 %}-half-o {% endif %}" aria-hidden="true"></i>
+                <span>({{product.countReview}})</span>
+            </div>
+            <div class="price"> ₹{{product.d_price|floatformat:2}} /{{product.unit}} <span> ₹{{product.o_price|floatformat:2}} /{{product.unit}}</span> </div>
+            <div class="quantity">
+                <span>quantity : </span>
+                <input type="number" min="1" max="1000" value="1" readonly>
+                
+            </div>
+            <a class="btn update-cart" data-product="{{product.id}}" data-action="add">add to cart</a>
+        </div>
+        {% endfor %}
+    </div>
+
+</section>
+
+<!-- product section ends -->
+
+
+
+<!-- newsletter section starts  -->
+
+<section class="newsletter">
+
+    <h3>subscribe us for latest updates</h3>
+
+    <form action="newsletter/" method="post">
+        {% csrf_token %}
+        <input class="box" name="email" type="email" placeholder="enter your email" style="text-transform: none;" required>
+        <input type="submit" value="subscribe" class="btn">
+    </form>
+
+</section>
+
+<!-- newsletter section ends -->
+
+<!-- review section starts  -->
+
+<section class="review" id="review">
+    
+    <h1 class="heading"> customer's <span>review</span> </h1>
+
+    <div class="box-container">
+
+        <div class="box">
+            <img src={% static 'images/user1.jpg' %} alt="">
+            <h3 style="color:#2c2c54">Monkey D. Luffy</h3>
+            <div class="stars">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star-half-alt"></i>
+            </div>
+            <p class="text">the Dairy Milk Cadbury chocolate bar is a classic and delicious chocolate that is sure to satisfy any sweet tooth. Whether you're a fan of chocolate or just looking for a tasty snack, this bar is definitely worth trying. </p>
+        </div>
+
+        <div class="box">
+            <img src={% static 'images/user2.jpg' %} alt="">
+            <h3 style="color:#2c2c54">Kira</h3>
+            <div class="stars">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star-half-alt"></i>
+            </div>
+            <p class="text">The 3 feet stuffed panda by Toyzone is a plush toy that is perfect for people who love pandas and are looking for a soft and cuddly companion. It is made of high-quality materials and has a lifelike appearance, making it a great addition to a child's room or a collector's shelf. </p>
+        </div>
+
+        <div class="box">
+            <img src={% static 'images/user3.jpg' %} alt="">
+            <h3 style="color:#2c2c54">Hinata</h3>
+            <div class="stars">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star-half-alt"></i>
+            </div>
+            <p class="text">The Black Forest Cake by Ribbon's and Balloon is a classic dessert that is loved by many. This cake is made of rich chocolate sponge, layered with whipped cream and cherries, and topped with more chocolate shavings.</p>
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock content %}

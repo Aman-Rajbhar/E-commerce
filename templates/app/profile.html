@@ -1,0 +1,98 @@
+{% extends "app/base.html" %}
+{% load static %}
+
+{% block content %}
+
+<!-- Profile section -->
+<section class="profile">
+    <h1 class="heading">Account <span>Information</span> </h1>
+    <div class="box-container">
+        <hr>
+        <div class="field ">
+             
+            <h1>Personal Information</h1>
+            <div class="perinfo">
+                <div>
+                    <img src={% static 'images/man.png' %} alt="">
+                </div>
+                <div>
+                    <p>Name: {{user.username}}</p>
+                    {% comment %}  <p>Name: {{customer.first_name}} {{customer.last_name}}</p> {% endcomment %}
+                    <br>
+                    
+                    <p>Email: {{user.email}}</p>
+                    <br>
+                    {% comment %} <p>Mobile No. : {{ user.mobile }}</p> {% endcomment %}
+                    <p>Mobile No. : 988213234</p>
+                    <br>
+                    <p>join date: {{user.date_joined}}</p>
+                    <p>last login: {{user.last_login}}</p>
+                </div>
+            </div>
+            
+            
+            
+        </div>
+        <br><hr><br>
+        
+        <div class="order field">
+            <h1 class="">Order <span>History</span></h1>
+            
+            <table class="tb">
+                <tr>
+                    <th>order id </th>
+                    <th>Trasaction id </th>
+                    <th>Status </th>
+                    <th>delivery status </th>
+                    <th>invoice </th>
+                </tr>
+
+                
+                    {% for i in order_detail %}
+                <tr>
+                    <td>{{i.id}}</td>
+                    <td>{{i.transaction_id}}</td>
+                    <td>
+                        {% if i.complete %}
+                        completed
+                        {% else %}
+                        pending
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if i.delivered  %}
+                        delivered
+                        {% else %}
+                        shipped
+                        {% endif %}
+                    </td>
+                    <td><a href={% url 'invoice' i.id %} >download</a></td>
+                </tr>
+                    {% endfor %}
+                    
+                
+            </table>
+        </div>
+        <br><hr><br>
+        <div class="field">
+            <div class="addr">
+                {% if address %}
+                <h1>Address</h1>
+                    {% for addr in address %}
+                    <p>Address: {{addr.address}}</p>
+                    <p>Landmark: {{addr.landmark}}</p>
+                    <p>City: {{addr.city}}</p>
+                    <p>State: {{addr.state}}</p>
+                    <p>zipcode: {{addr.zipcode}}</p>
+                    <p>Country: India</p>
+                    {% endfor %}
+                {% endif %}
+            </div>
+            
+            
+        </div>
+        
+    </div>
+</section>
+
+{% endblock content %}
