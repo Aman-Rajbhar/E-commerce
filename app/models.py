@@ -1,0 +1,155 @@
+from django.db import models
+from django.contrib.auth.models import User
+
+from django.utils.timezone import now
+from django.db.models import Avg, Count
+# Create your models here.
+
+class Customer(models.Model):
+    user = models.OneToOneField(User,on_delete=models.CASCADE, null=True, blank=True)
+    name = models.CharField(max_length=200, null=True)
+    email = models.CharField(max_length=200, unique=True)
+    mobile = models.CharField(verbose_name='mobile no', max_length=12)
+    date_joined = models.DateTimeField(verbose_name='date joined', auto_now_add=True)
+    last_login = models.DateTimeField(verbose_name='last login', auto_now=True)
+
+
+
+
+    def __str__(self):
+        return self.name
+     
+CATEGORY = (
+    ('Mens', 'Mens'),
+    ('Womens', 'Womens'),
+    ('Kids', 'Kids'),
+    ('Electronics', 'Electronics'),
+    ('Beauty', 'Beauty'),
+    ('HD', 'HD'),
+    
+)
+
+class Product(models.Model):
+    name = models.CharField(max_length=30)
+    o_price = models.FloatField(verbose_name='Original Price')
+    d_price = models.FloatField(verbose_name='Discounted Price')
+    category = models.CharField(choices=CATEGORY, max_length=20)
+    star = models.IntegerField()
+    unit = models.CharField(max_length=30)
+    description = models.TextField(null=True, blank=True)
+    image = models.ImageField(null=True, blank=True)
+
+    def __str__(self):
+        return self.name
+    
+    @property
+    def get_discount(self):
+        discont = ((self.o_price - self.d_price) / self.o_price) * 100
+        return discont
+    
+
+    @property
+    def imageUrl(self):
+        try:
+            url = self.image.url
+        except:
+            url = ''
+        return url
+    
+    def averageReview(self):
+        reviews = ProductReview.objects.filter(product=self, status=True).aggregate(average=Avg('rating'))
+        avg = 0
+        if reviews['average'] is not None:
+            avg = float(reviews['average'])
+        return avg
+
+    def countReview(self):
+        reviews = ProductReview.objects.filter(product=self, status=True).aggregate(count=Count('id'))
+        count = 0
+        if reviews['count'] is not None:
+            count = int(reviews['count'])
+        return count
+    
+class ProductReview(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
+    customer = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
+    subject = models.CharField(max_length=100, blank=True)
+    review = models.TextField(max_length=500, blank=True)
+    rating = models.FloatField()
+    status = models.BooleanField(default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self) -> str:
+        return self.subject
+
+    
+class Newsletter(models.Model):
+    email = models.EmailField(max_length=60,)
+    consent =models.BooleanField(default=True)
+
+    def __str__(self) -> str:
+        return self.email
+
+
+class Queries(models.Model):
+    name = models.CharField(max_length=60)
+    email = models.EmailField(max_length=60)
+    subject = models.CharField(max_length=60)
+    message = models.TextField()
+    is_resolved = models.BooleanField(default=False)
+
+    def __str__(self) -> str:
+        return self.name
+    
+
+class Order(models.Model):
+    customer =models.ForeignKey(User,on_delete=models.SET_NULL,blank=True,null=True)
+    date_orderd =models.DateTimeField(auto_now_add=True)
+    complete = models.BooleanField(default=False,null=True,blank=False)
+    delivered = models.BooleanField(default=False,null=True,blank=False)
+    transaction_id = models.CharField(max_length=200,null=True)
+    date_completed  = models.DateField(default=now)
+    
+    def __str__(self):
+        return str(self.id)
+    
+    
+    @property
+    def get_cart_total(self):
+        orderitems = self.orderitem_set.all()
+        total = sum([item.get_total for item in orderitems])
+        return total
+    
+    @property
+    def get_cart_items(self):
+        orderitems = self.orderitem_set.all()
+        total = sum([item.quantity for item in orderitems])
+        return total
+    
+class OrderItem(models.Model):
+    product = models.ForeignKey(Product,on_delete=models.SET_NULL,blank=True,null=True)
+    order = models.ForeignKey(Order,on_delete=models.SET_NULL,blank=True,null=True)
+    quantity = models.IntegerField(default=0,null=True,blank=True)
+    date_added = models.DateTimeField(auto_now_add=True)
+    
+    @property
+    def get_total(self):
+        total = self.product.d_price * self.quantity
+        return total
+    
+    def __str__(self):
+        return str(self.product)
+    
+    
+class ShippingAddress(models.Model):
+    customer = models.ForeignKey(User,on_delete=models.SET_NULL,blank=True,null=True)
+    address= models.CharField(max_length=200,null=True)
+    landmark= models.CharField(max_length=200,null=True)
+    city= models.CharField(max_length=200,null=True)
+    state= models.CharField(max_length=200,null=True)
+    zipcode= models.CharField(max_length=200,null=True)
+    date_added = models.DateTimeField(auto_now_add=True)
+    
+    def __str__(self):
+        return str(self.customer)

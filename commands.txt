@@ -1,0 +1,56 @@
+
+py -m venv myworld
+
+pip install -r requirements.txt
+
+django-admin startproject project .
+py manage.py startapp appname
+
+python manage.py createsuperuser
+python manage.py makemigrations
+python manage.py migrate
+python manage.py runserver
+
+////changes in header.html swap register with login
+
+#--------->Changes in code for production/ Hosting into vercel
+
+#Created file build_files.sh and vercel.json written some code inside it.
+#changes in store/wsgi line no. 17    
+app = application
+
+#CHanges at store/settings.py file line 14,86, 137
+import os
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': '',
+        'USER': '',
+        'PASSWORD': '',
+        'HOST': '',
+        'PORT': '6625'
+    }
+}
+
+STATICFILES_DIRS = os.path.join(BASE_DIR, 'static'),
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles_build', 'static')
+
+#changes at store/urls.py line 28
+ #create postgress databse into vercel 
+#createsuperuser 
+Username (leave blank to use 'amanrajbhar'): 
+Email address: amanrajbhar105@gmail.com
+Password: aman123
+
+#changes in settings.py
+ALLOWED_HOSTS = ['.vercel.app', '.now.sh']
+
+pip freeze > requirements.txt
+
+
+//---------> Upload all the files to github
+git init
+git remote add origin https://github.com/Aman-Rajbhar/E-commerce.git
+git status
+git add .
